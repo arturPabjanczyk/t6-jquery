@@ -13,6 +13,7 @@ class DatePicker extends React.Component {
     window.$(this.datepickerContainer.current).datepicker({
       onSelect: this.props.onDateChange
     });
+    window.$(this.datepickerContainer.current).datepicker('setDate', `${this.props.initialDate}`);
   }
 
   componentWillUnmount() {
@@ -26,7 +27,7 @@ class DatePicker extends React.Component {
 
 class App extends React.Component {
   state = {
-    selectedDate: null
+    selectedDate: "02/18/1971"
   }
 
   render() {
@@ -37,7 +38,10 @@ class App extends React.Component {
         <h2>
           {selectedDate ? selectedDate : "Pick date"}
         </h2>
-        <DatePicker onDateChange={(date => this.setState({selectedDate: date}))}/>
+        <DatePicker
+          onDateChange={(date => this.setState({selectedDate: date}))}
+          initialDate={this.state.selectedDate}
+        />
       </div>
     )
   }
