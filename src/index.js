@@ -15,6 +15,10 @@ class DatePicker extends React.Component {
     });
   }
 
+  componentWillUnmount() {
+    window.$(this.datepickerContainer.current).datepicker("destroy");
+  }
+
   render() {
     return <div ref={this.datepickerContainer}/>
   }
