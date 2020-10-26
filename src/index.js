@@ -10,7 +10,9 @@ class DatePicker extends React.Component {
   }
 
   componentDidMount() {
-    window.$(this.datepickerContainer.current).datepicker();
+    window.$(this.datepickerContainer.current).datepicker({
+      onSelect: this.props.onDateChange
+    });
   }
 
   render() {
@@ -22,7 +24,7 @@ function App() {
   return (
     <div className="App">
       <h1>Hello jQueryUI</h1>
-      <DatePicker />
+      <DatePicker onDateChange={(date => console.log(date))}/>
     </div>
   )
 }
