@@ -20,13 +20,23 @@ class DatePicker extends React.Component {
   }
 }
 
-function App() {
-  return (
-    <div className="App">
-      <h1>Hello jQueryUI</h1>
-      <DatePicker onDateChange={(date => console.log(date))}/>
-    </div>
-  )
+class App extends React.Component {
+  state = {
+    selectedDate: null
+  }
+
+  render() {
+    const {selectedDate} = this.state;
+    return (
+      <div className="App">
+        <h1>Hello jQueryUI</h1>
+        <h2>
+          {selectedDate ? selectedDate : "Pick date"}
+        </h2>
+        <DatePicker onDateChange={(date => this.setState({selectedDate: date}))}/>
+      </div>
+    )
+  }
 }
 
 const rootElement = document.getElementById("root");
