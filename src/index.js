@@ -27,12 +27,13 @@ class DatePicker extends React.Component {
 
 function DateDetails({date, format}) {
   const theDate =  new Date(date);
+  const now = new Date();
   return(
     <div className="DateDetails">
       <h2>Fun facts about this date</h2>
       <ol>
         <li>The date is: {theDate.toString()}</li>
-        <li>Counting from now ({"XXXX"}, it would be {"6 years ago"}.</li>
+        <li>Counting from now ({now.toDateString()}, it would be {"6 years ago"}.</li>
         <li>Next valentine's day ({"XXXX"} will be {"in 3 weeks"}.</li>
         <li>It does not fall within a leap year.</li>
         <li>It is a summer day (it's between {"XXXX"} and {"YYYY"}.</li>
