@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import moment from "moment";
+// import moment from "moment";
+import moment from 'moment/min/moment-with-locales'
+
 
 import './index.css';
 
@@ -27,8 +29,7 @@ class DatePicker extends React.Component {
 }
 
 function DateDetails({date, format}) {
-  moment.locale("fr");
-  const theDate = moment(date, format).locale("pl");
+  const theDate = moment(date, format);
   const now = moment().hour(0).minute(0).seconds(0);
   const nextValentine = moment([theDate.year(), 1, 14]);
   if (nextValentine.isSameOrBefore(theDate)) {
@@ -49,6 +50,9 @@ function DateDetails({date, format}) {
         <li>It {theDate.isLeapYear()? "does" : "does not"} fall within a leap year.</li>
         <li>It is {theDate.isBetween(summerStart - 1, summerEnd) ? "": "not"} a summer day (it's between {summerStart.format("ll")} and {summerEnd.format("ll")}).</li>
         <li>It is {theDate.isSame(programmersDay, "day") ? "" : "not"} Programmer's Day ({programmersDay.format("ll")}).</li>
+        <li>The third friday after this date is {theDate.day("Friday").clone().add(14, "days").format("ll")}.</li>
+        <li>Last day of the month of this date is {theDate.endOf('month').format("dddd")}.</li>
+        <li>This date falls on {theDate.week()} week of the year.</li>
       </ol>
     </div>
   )
