@@ -1,5 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+// import moment from "moment";
+import moment from 'moment/min/moment-with-locales'
+
 
 import './index.css';
 
@@ -25,9 +28,39 @@ class DatePicker extends React.Component {
   }
 }
 
+function DateDetails({date, format}) {
+  const theDate = moment(date, format);
+  const now = moment().hour(0).minute(0).seconds(0);
+  const nextValentine = moment([theDate.year(), 1, 14]);
+  if (nextValentine.isSameOrBefore(theDate)) {
+    nextValentine.add(1, "year");
+  }
+  const summerStart = theDate.clone().startOf("year").add(5, "months").add(20, "days");
+  const summerEnd = moment(summerStart).month(8).date(23);
+  const programmersDay = moment(theDate).startOf("year").dayOfYear(256).add(3, "seconds");
+  return (
+    <div className="DateDetails">
+      <h2>Fun facts about this date</h2>
+      <ol>
+        <li>The date is: {theDate.format("ll")}</li>
+        <li>Counting from now ({now.format("ll")}), it would be {
+          Math.abs(theDate.format("x") - now.format("x")) < 1000 ? "the same day" : theDate.from(now)
+        }.</li>
+        <li>Next valentine's day ({nextValentine.format("ll")}) will be {theDate.to(nextValentine)}.</li>
+        <li>It {theDate.isLeapYear()? "does" : "does not"} fall within a leap year.</li>
+        <li>It is {theDate.isBetween(summerStart - 1, summerEnd) ? "": "not"} a summer day (it's between {summerStart.format("ll")} and {summerEnd.format("ll")}).</li>
+        <li>It is {theDate.isSame(programmersDay, "day") ? "" : "not"} Programmer's Day ({programmersDay.format("ll")}).</li>
+        <li>The third friday after this date is {theDate.day("Friday").clone().add(14, "days").format("ll")}.</li>
+        <li>Last day of the month of this date is {theDate.endOf('month').format("dddd")}.</li>
+        <li>This date falls on {theDate.week()} week of the year.</li>
+      </ol>
+    </div>
+  )
+}
+
 class App extends React.Component {
   state = {
-    selectedDate: "02/18/1971"
+    selectedDate: "10/28/2020"
   }
 
   render() {
@@ -40,8 +73,11 @@ class App extends React.Component {
         </h2>
         <DatePicker
           onDateChange={(date => this.setState({selectedDate: date}))}
-          initialDate={this.state.selectedDate}
+          initialDate={selectedDate}
         />
+        {selectedDate ? (
+          <DateDetails date={selectedDate} format="MM/DD/YYYY"/>
+        ) : null}
       </div>
     )
   }
