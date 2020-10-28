@@ -42,7 +42,9 @@ function DateDetails({date, format}) {
       <h2>Fun facts about this date</h2>
       <ol>
         <li>The date is: {theDate.format("ll")}</li>
-        <li>Counting from now ({now.format("ll")}), it would be {theDate.from(now)}.</li>
+        <li>Counting from now ({now.format("ll")}), it would be {
+          Math.abs(theDate.format("x") - now.format("x")) < 1000 ? "the same day" : theDate.from(now)
+        }.</li>
         <li>Next valentine's day ({nextValentine.format("ll")}) will be {theDate.to(nextValentine)}.</li>
         <li>It {theDate.isLeapYear()? "does" : "does not"} fall within a leap year.</li>
         <li>It is {theDate.isBetween(summerStart - 1, summerEnd) ? "": "not"} a summer day (it's between {summerStart.format("ll")} and {summerEnd.format("ll")}).</li>
